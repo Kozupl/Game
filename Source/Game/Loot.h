@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayEffectTypes.h"
+#include "CustomAttributeHelper.h"
 #include "Loot.generated.h"
 
 UCLASS()
@@ -19,20 +21,19 @@ public:
 		class UStaticMeshComponent* Body;
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 
-	class UGameplayEffect* CreateGA(FName Name) const;
-
-	void CreateModifiers(class UGameplayEffect*& Effect, int32 Number) const;// only use for instanced GA
+	FName GetGEName() const;//used for giving uniquie name for each GA created
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-		float AttackPower = 10.f;
+	void Equip(class UAbilitySystemComponent* EquiperASC);
 
-	void Equip(class UAbilitySystemComponent* EquiperASC) const;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+		FEquipmentData EquipmentData;
+
+	UPROPERTY()
+		FActiveGameplayEffectHandle EquipedEffectHandle;
 
 };

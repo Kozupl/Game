@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Game.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{4F297844-16D9-42EA-BBB5-B5DBDBF2ED6C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Game.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\GameEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\README.md" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{B5CB0DDA-EF74-4959-92B9-D4DBA14BD879}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGameplayTags.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{1F295B0D-2D89-4054-8332-1DBDCB8653C6}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Game\Active_Ability.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Active_Ability.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\AsyncTaskAttributeChanged.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\AsyncTaskAttributeChanged.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\Characters_Interface.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Characters_Interface.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\Cost_MMC.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Cost_MMC.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\CustomAttributeHelper.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\CustomAttributeHelper.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\Equip_MMC.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Equip_MMC.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\Game\Game.Build.cs">
+      <Filter>Source\Game</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Game\Game.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Game.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\GameAttributeSet.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\GameAttributeSet.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\GameCharacter.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\GameCharacter.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\GamePlayerController.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\GamePlayerController.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\Loot.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\Loot.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Game\LootDrops_comp.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Game\LootDrops_comp.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

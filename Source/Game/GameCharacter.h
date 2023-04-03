@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-#include <GameplayEffectTypes.h>
+//#include <GameplayEffectTypes.h>
 #include "GameplayTagContainer.h"
 #include "GameAttributeSet.h"
 #include "AsyncTaskAttributeChanged.h"
@@ -42,6 +42,9 @@ protected:
 public:
 			//Event BeginPlay
 	virtual void BeginPlay() override;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Animation")
+		class UDataTable* LootDrops;
 
 			//Attributes Handlers
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
@@ -95,4 +98,6 @@ public:
 	virtual void Die_Implementation(AActor* Killer) override;
 
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
+
+
 };

@@ -10,9 +10,10 @@ AGameCharacter::AGameCharacter()//constructor
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComp");
 
+	LootDrops = nullptr;
+
 	DeadTag = FGameplayTag::RequestGameplayTag(FName("State.Dead"));
 	EffectRemoveOnDeathTag = FGameplayTag::RequestGameplayTag(FName("Effect.RemoveOnDeath"));
-
 }
 
 void AGameCharacter::BeginPlay() 
