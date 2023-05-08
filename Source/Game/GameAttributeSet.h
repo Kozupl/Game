@@ -70,16 +70,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")
 		FGameplayAttributeData AttackSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Progress")
 		FGameplayAttributeData Level;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Progress")
 		FGameplayAttributeData ExpForNextLvl;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Progress")
 		FGameplayAttributeData CurrentExp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Progress")
 		FGameplayAttributeData ExpBounty;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes|Stats")

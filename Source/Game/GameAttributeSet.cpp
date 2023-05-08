@@ -9,8 +9,11 @@
 
 UGameAttributeSet::UGameAttributeSet() {}
 
-bool UGameAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) // Called just before modifying the value of an attribute. AttributeSet can make additional modifications here. Return true to continue, or false to throw out the modification
-{//Use to prevent impossible changes, e.g. heal over max health. Generaly for meta attributes
+// Called just before modifying the value of an attribute.
+//AttributeSet can make additional modifications here. Return true to continue, or false to throw out the modification
+//Use to prevent impossible changes, e.g. heal over max health. Generaly for meta attributes
+bool UGameAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data)
+{
     Super::PreGameplayEffectExecute(Data);
 
     FGameplayAttribute Attribute = Data.EvaluatedData.Attribute;
@@ -18,7 +21,7 @@ bool UGameAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallba
 
     if (Attribute == GetCurrentHealthAttribute())//doesn't apply heal, if hp is max
     {
-        if (GetCurrentHealth() == GetMaxHealth() || GetCurrentHealth() == 0.f)//I think, I should handle dead case by tag, instead of by 0 health value
+        if (GetCurrentHealth() == GetMaxHealth() || GetCurrentHealth() == 0.f)//I think, I should handle dead case by tag(or by bool), instead of by 0 health value
             if (Magnitude > GetCurrentMana())
                 return false;
     }
@@ -30,9 +33,11 @@ bool UGameAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallba
         return true;
 }
 
-void UGameAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) //This is lower level than PreAttributeModify/PostAttribute modify. This function is meant to enforce things like clamping and NOT things like "trigger this extra thing if damage is applied, etc". 
-{//Use for clamping, generaly
-
+//This is lower level than PreAttributeModify/PostAttribute modify.
+//This function is meant to enforce things like clamping and NOT things like "trigger this extra thing if damage is applied, etc".
+//Use for clamping, generaly
+void UGameAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) 
+{
     Super::PreAttributeChange(Attribute, NewValue);
 
     if (Attribute == GetCurrentHealthAttribute())
@@ -55,8 +60,9 @@ void UGameAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
     }
 }
 
+//Use for attributes effect, e.g. levelup or death
 void UGameAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
-{//Use for attributes effect, e.g. levelup or death
+{
     
 	Super::PostGameplayEffectExecute(Data);
     FGameplayAttribute AttributeChanged = Data.EvaluatedData.Attribute;
@@ -78,9 +84,9 @@ void UGameAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
             }
         }
 	}
-    else if (AttributeChanged == GetCurrentExpAttribute())
+    else if (AttributeChanged == GetCurrentExpAttribute())//Exp change
     {
-        while (GetCurrentExp() > GetExpForNextLvl())
+        while (GetCurrentExp() > GetExpForNextLvl())//"Spend" exp points to level up, until it's not enough
         {
             SetCurrentExp(GetCurrentExp() - GetExpForNextLvl());
             SetLevel(GetLevel() + 1.f);

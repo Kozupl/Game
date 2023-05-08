@@ -11,33 +11,44 @@ UCustomAttributeHelper::UCustomAttributeHelper()
 
 }
 
-FGameplayAttribute UCustomAttributeHelper::GetAttributeByName(FName PropertyName)
+FGameplayAttribute UCustomAttributeHelper::GetAttributeByEnumName(const EEquipmentAttributes& PropertyEnum)
 {
-	static  FProperty* Prop = FindFieldChecked<FProperty>(UGameAttributeSet::StaticClass(), PropertyName);
+	FName PropertyName = FName();
+		PropertyName = UEnum::GetValueAsName(PropertyEnum);//Gets name of enum
+	//else {
+		//UE_LOG(LogTemp, Warning, TEXT("PropertyEnum isn't valid"));
+		//PropertyName = FName(TEXT("Invalid"));
+	//}
+	return GetAttributeByName(PropertyName);
+}
+
+// Not sure if this method of getting Attribute does work, becouse of possible inaccuracy in name.
+FGameplayAttribute UCustomAttributeHelper::GetAttributeByName(const FName PropertyName)
+{
+	static FProperty* Prop = FindFieldChecked<FProperty>(UGameAttributeSet::StaticClass(), PropertyName);
 	//didn't I create a UGameAttributeSet every time this method is called? Well, it's STATIC class, so I shouldn't
 	return Prop;
 }
 
 FEquipmentData::FEquipmentData()
 {
-	Name = FName(TEXT("Bob"));
-	Type = FGameplayTag();//FGameplayTag::RequestGameplayTag(FName("State.Dead"));
-	MainAttributes.Add(FName (TEXT("MaxHealth")), 10);
-	SecondaryAttributes.Add(FName(TEXT("MaxMana")), 10);
+	Type = EEquipmentType::MainHand;
+	MainAttributes.Add(EEquipmentAttributes::Health, 10);
+	SecondaryAttributes.Add(EEquipmentAttributes::Mana, 10);
 	Rarity = ERarity::RE_Common;
-	Appearance = nullptr;
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("StaticMesh'/Game/InfinityBladeWeapons/Weapons/Blunt/Blunt_BoneShard/StaticMesh/SM_Blunt_BoneShardMace.SM_Blunt_BoneShardMace'"));
-	//Appearance = MeshAsset.Object;
+	Name = FName(TEXT("Bob"));
+	WorldAppearence = nullptr;
 }
 
-FEquipmentData::FEquipmentData(FName Name, FName TypeTagName, TMap<FName, float> MainAttributes, TMap<FName, float> SecondaryAttributes, ERarity Rarity, UStaticMesh* Appearance)
+FEquipmentData::FEquipmentData(FName Name, EEquipmentType EquipType, TMap<EEquipmentAttributes, float> MainAttributes,
+	TMap<EEquipmentAttributes, float> SecondaryAttributes, ERarity Rarity, UStaticMesh* Appearance)
 {
 	this->Name = Name;
-	this->Type = FGameplayTag::RequestGameplayTag(FName(TypeTagName));
+	this->Type = EquipType;
 	this->MainAttributes = MainAttributes;
 	this->SecondaryAttributes = SecondaryAttributes;
 	this->Rarity = Rarity;
-	this->Appearance = Appearance;
+	this->WorldAppearence = Appearance;
 }
 
 int32 FEquipmentData::GetAttributesNumber() const
@@ -45,18 +56,4 @@ int32 FEquipmentData::GetAttributesNumber() const
 	int32 Num;
 	Num = MainAttributes.Num() + SecondaryAttributes.Num();
 	return Num;
-}
-
-FRandomLoot::FRandomLoot()
-{
-	Type = FGameplayTag::RequestGameplayTag(FName("Equipment.Head"));
-	Rarity = ERarity::RE_Common;
-	Level = 1;
-}
-
-FRandomLoot::FRandomLoot(FName TypeTagName, ERarity Rarity, int32 level)
-{
-	this->Type = FGameplayTag::RequestGameplayTag(TypeTagName);
-	this->Rarity = Rarity;
-	Level = level;
 }

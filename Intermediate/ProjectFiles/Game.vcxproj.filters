@@ -3,18 +3,15 @@
   <ItemGroup>
     <None Include="..\..\Game.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{4F297844-16D9-42EA-BBB5-B5DBDBF2ED6C}</UniqueIdentifier>
+      <UniqueIdentifier>{C3400DCF-2171-4FA4-8C46-1DDEA4E6DC00}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Game.Target.cs">
-      <Filter>Source</Filter>
-    </None>
-    <None Include="..\..\Source\GameEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.gitignore" />
     <None Include="..\..\README.md" />
     <Filter Include="Config">
-      <UniqueIdentifier>{B5CB0DDA-EF74-4959-92B9-D4DBA14BD879}</UniqueIdentifier>
+      <UniqueIdentifier>{32B47B45-92CC-4A73-AF44-10A066E44F7E}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -35,7 +32,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\Game">
-      <UniqueIdentifier>{1F295B0D-2D89-4054-8332-1DBDCB8653C6}</UniqueIdentifier>
+      <UniqueIdentifier>{14165BE8-9A01-4F21-8A9B-233BB6E0B1FE}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\Game\Active_Ability.cpp">
       <Filter>Source\Game</Filter>
@@ -65,12 +62,6 @@
       <Filter>Source\Game</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\Game\CustomAttributeHelper.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\Game\Equip_MMC.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Game\Equip_MMC.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
     <None Include="..\..\Source\Game\Game.Build.cs">
@@ -106,10 +97,10 @@
     <ClInclude Include="..\..\Source\Game\Loot.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\Game\LootDrops_comp.cpp">
+    <ClCompile Include="..\..\Source\Game\LootTable.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\Game\LootDrops_comp.h">
+    <ClInclude Include="..\..\Source\Game\LootTable.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>

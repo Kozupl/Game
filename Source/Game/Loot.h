@@ -20,20 +20,31 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Appearance")
 		class UStaticMeshComponent* Body;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Appearance|Interface")
+		class UImage* LootIcon;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Appearance|Interface")
+		FName Name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Appearance|Interface")
+		FText ItemDescription;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Loot Properties")
+		EEquipmentType Type;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Loot Properties")
+		ERarity Rarity;
+
+
+
 protected:
 
 	virtual void BeginPlay() override;
 
-	FName GetGEName() const;//used for giving uniquie name for each GA created
+	FName GetGEName() const;//Gives uniquie name for each GA created
 
 public:	
 
-	void Equip(class UAbilitySystemComponent* EquiperASC);
+	//void Equip(class UAbilitySystemComponent* EquiperASC);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-		FEquipmentData EquipmentData;
-
-	UPROPERTY()
-		FActiveGameplayEffectHandle EquipedEffectHandle;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+		//FActiveGameplayEffectHandle EquipedEffectHandle;
 
 };

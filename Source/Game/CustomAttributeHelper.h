@@ -4,18 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
-#include "GameplayTagContainer.h"
 #include "CustomAttributeHelper.generated.h"
 
 
 UENUM(BlueprintType)
 enum class ERarity : uint8 {
-	RE_Common     UMETA(DisplayName = "Common"),
-	RE_Rare       UMETA(DisplayName = "Rare"),
-	RE_Legendary  UMETA(DisplayName = "Legendary"),
+	RE_Common	 	UMETA(DisplayName = "Common"),
+	RE_Rare		 	UMETA(DisplayName = "Rare"),
+	RE_Legendary 	UMETA(DisplayName = "Legendary"),
 };
 
-//it will be better to make enum for stats, instead of FName
+UENUM(BlueprintType)
+enum class EEquipmentType : uint8 {
+	Chest	 	UMETA(DisplayName = "Chest"),
+	Head	 	UMETA(DisplayName = "Head"),
+	MainHand 	UMETA(DisplayName = "MainHand"),
+	OffHand	 	UMETA(DisplayName = "OffHand"),
+	Legs	 	UMETA(DisplayName = "Legs"),
+	Ring	 	UMETA(DisplayName = "Ring"),
+};
+
+UENUM(BlueprintType) // not very good solution, but i don't see better ways
+enum class EEquipmentAttributes : uint8 {
+	Health 			UMETA(DisplayName = "Health"),
+	Mana 			UMETA(DisplayName = "Mana"),
+	HealthRegen	 	UMETA(DisplayName = "HealthRegen"),
+	ManaRegen 		UMETA(DisplayName = "ManaRegen"),
+	Defense	 		UMETA(DisplayName = "Defense"),
+	AttackSpeed	 	UMETA(DisplayName = "AttackSpeed"),
+	MovementSpeed 	UMETA(DisplayName = "MovementSpeed"),
+};
 
 USTRUCT(BlueprintType)
 struct GAME_API FEquipmentData
@@ -25,25 +43,36 @@ struct GAME_API FEquipmentData
 public:
 
 	FEquipmentData();
+
 	FEquipmentData
-	(FName Name, FName TypetagName, TMap<FName, float> MainAttributes,
-	TMap<FName, float> SecondaryAttributes, ERarity Rarity, UStaticMesh* Appearance);
+	(FName Name, EEquipmentType EquipType, TMap<EEquipmentAttributes, float> MainAttributes,
+	TMap<EEquipmentAttributes, float> SecondaryAttributes, ERarity Rarity, UStaticMesh* Appearance);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UStaticMesh* Appearance;
+		class UStaticMesh* WorldAppearence;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FName Name;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FGameplayTag Type;
+		EEquipmentType Type;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ERarity Rarity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TMap<FName, float> MainAttributes;//
+		TMap<EEquipmentAttributes, float> MainAttributes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TMap<FName, float> SecondaryAttributes;//
+		TMap<EEquipmentAttributes, float> SecondaryAttributes;
 
 		int32 GetAttributesNumber() const;// gives number of MainAttributes+SecondaryAttributes
+
+		FORCEINLINE bool operator==(const FEquipmentData& Other) const {
+
+			if (Name == Other.Name && Type == Other.Type && Rarity == Other.Rarity && WorldAppearence == Other.WorldAppearence) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 };
 
 UCLASS(Blueprintable)
@@ -54,45 +83,20 @@ class UCustomAttributeHelper : public UObject
 public:
 	UCustomAttributeHelper();
 
-	UFUNCTION(BlueprintCallable, Category = "Attributes")
-		static FGameplayAttribute GetAttributeByName(FName PropertyName); //FGameplayAttribute* pointer is impossible
-};
+	//UFUNCTION(BlueprintCallable, Category = "Attributes")
+		static FGameplayAttribute GetAttributeByName(const FName PropertyName);
 
-USTRUCT(BlueprintType)
-struct GAME_API FRandomLoot
-{
-	GENERATED_BODY()
-
-public:
-
-	FRandomLoot();
-	FRandomLoot(FName TypeTagName, ERarity Rarity, int32 level);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FGameplayTag Type;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ERarity Rarity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 Level;
-
-	FORCEINLINE bool operator==(const FRandomLoot& Other) const {
-
-		if (Rarity == Other.Rarity && Level == Other.Level && Type == Other.Type) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+	//UFUNCTION(BlueprintCallable, Category = "Attributes")
+		static FGameplayAttribute GetAttributeByEnumName(const EEquipmentAttributes& PropertyEnum);
 
 };
 
 #if UE_BUILD_DEBUG
-uint32 GetTypeHash(const FRandomLoot& Thing);
-#else // optimize by inlining in shipping and development builds (what???)
-FORCEINLINE uint32 GetTypeHash(const FRandomLoot& Thing)
+uint32 GetTypeHash(const FEquipmentData& Thing);
+#else 
+FORCEINLINE uint32 GetTypeHash(const FEquipmentData& Thing)
 {
-	uint32 Hash = FCrc::MemCrc32(&Thing, sizeof(FRandomLoot));
+	uint32 Hash = FCrc::MemCrc32(&Thing, sizeof(FEquipmentData));
 	return Hash;
 }
 #endif

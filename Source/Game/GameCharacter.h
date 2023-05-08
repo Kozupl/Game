@@ -4,7 +4,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-//#include <GameplayEffectTypes.h>
 #include "GameplayTagContainer.h"
 #include "GameAttributeSet.h"
 #include "AsyncTaskAttributeChanged.h"
@@ -32,6 +31,8 @@ private:
 	// Removes all CharacterAbilities. Can only be called by the Server. Removing on the Server will remove from Client too.
 	virtual void RemoveCharacterAbilities();
 
+	UPROPERTY(EditDefaultsOnly, Category = "Loot")
+		class ULootTable* LootTable;
 
 protected:
 
@@ -43,8 +44,8 @@ public:
 			//Event BeginPlay
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Animation")
-		class UDataTable* LootDrops;
+	UFUNCTION(BlueprintCallable, Category = "Loot")
+		void DropLoot() const;
 
 			//Attributes Handlers
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities")

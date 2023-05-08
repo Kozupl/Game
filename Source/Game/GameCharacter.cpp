@@ -4,32 +4,34 @@
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystemComponent.h"
+#include "LootTable.h"
 #include "GameAttributeSet.h"
+#include "Loot.h"
 
 AGameCharacter::AGameCharacter()//constructor
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComp");
 
-	LootDrops = nullptr;
-
 	DeadTag = FGameplayTag::RequestGameplayTag(FName("State.Dead"));
 	EffectRemoveOnDeathTag = FGameplayTag::RequestGameplayTag(FName("Effect.RemoveOnDeath"));
+
+	LootTable = nullptr;
+	DeathMontage = nullptr;
 }
 
 void AGameCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
-
 	if (IsValid(AbilitySystemComponent))
 	{
-
 		AttributeSet = AbilitySystemComponent->GetSet<UGameAttributeSet>();
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-
-		//Attribute change callbacks
-		/*CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate
-		(AttributeSet->GetCurrentHealthAttribute()).AddUObject(this, &AGameCharacter::CurrentHealthChanged);*/
+		AbilitySystemComponent->InitAbilityActorInfo(GetController(), this);// AbilitySystemComponent initialization.
+		//Actor controller will be owner of AbilitySystemComponent, and character will be avatar
 	}
+	//Attribute change callbacks
+	/*CurrentHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate
+	(AttributeSet->GetCurrentHealthAttribute()).AddUObject(this, &AGameCharacter::CurrentHealthChanged);*/
+
 }
 
 void AGameCharacter::GrandAbility(TSubclassOf <UGameplayAbility> AbilityClass, int32 AbilityLevel, int32 InputCode) const 
@@ -156,4 +158,18 @@ void AGameCharacter::FinishDying()
 bool AGameCharacter::IsAlive() const 
 {
 	return GetCurrentHealth() != 0.f;
+}
+
+void AGameCharacter::DropLoot() const 
+{
+	TArray<FEquipmentData> LootBag;//mb call LootBag.Empty() before passing into DropLoot()?
+	//LootBag.Empty();
+	LootTable->DropLoot(LootBag);
+	/*for (FEquipmentData EquipmentData : LootBag) {
+		ALoot Loot = ALoot(EquipmentData);
+		const FVector SpawnLocation = GetActorLocation();
+		FRotator SpawnRotation(0.0f, 0.0f, 0.0f);
+		const FActorSpawnParameters SpawnParameters = FActorSpawnParameters();
+		GetWorld()->SpawnActor<ALoot>(SpawnLocation, SpawnRotation, SpawnParameters);
+	}*/
 }
